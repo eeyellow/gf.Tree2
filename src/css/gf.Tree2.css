@@ -1,0 +1,38 @@
+:root {
+    --main-height: 45px;
+    --main-gutter: -8px;
+    --match-width: 180px;
+    --player-width: 370px;
+    --score-width: 60px;
+}
+
+.gfTreeItem {
+    width: auto;
+    padding: 0.6em;
+    background: #EBEFE7;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: #CCC;
+    display: flex;
+    flex-direction: row;
+}
+
+.gfTreeItem:first-child {
+    border-top-width: 1px;
+}
+
+.gfTreeItem:hover {
+    background: #89bd00;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.gfTreeContent-Icon {
+    width: 1em;
+    height: 1em;
+    padding-right: 5px;
+    flex: 1;
+}
+.gfTreeContent-Text{
+    flex: 9;
+}

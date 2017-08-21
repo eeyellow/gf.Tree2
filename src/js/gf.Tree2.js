@@ -119,7 +119,7 @@
                             "class": "gfTreeItem",
                             "data-id": ele[o.opt.identityField],
                             "data-type": ele[o.opt.iconField],
-                            "data-kmlurl": ele[o.opt.kmlField],
+                            "data-kmlurl": ele[o.opt.urlField],
                             "data-layerid2d": ele[o.opt.layeridField],
                             "data-parentid": ele[o.opt.parentField],
                             "data-lvl": 0,

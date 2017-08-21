@@ -1,11 +1,3 @@
-:root {
-    --main-height: 45px;
-    --main-gutter: -8px;
-    --match-width: 180px;
-    --player-width: 370px;
-    --score-width: 60px;
-}
-
 .gfTreeItem {
     width: auto;
     padding: 0.6em;

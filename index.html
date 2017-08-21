@@ -19,9 +19,13 @@
                     .then(function(res){
                         if(res.ok){
                             res.json().then(function(dataset) {
-                                $('#treeContainer').gfTree2({
-                                    arrData: dataset
+                                grtree2 = $('#treeContainer').gfTree2({
+                                    arrData: dataset,
+                                    onClick: function(e, r){
+                                        
+                                    }
                                 });
+                                debugger;
                             });
                         }
                         else{

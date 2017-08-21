@@ -31,7 +31,7 @@
     width: 1em;
     height: 1em;
     padding-right: 5px;
-    flex: 1;
+    /*flex: 1;*/
 }
 .gfTreeContent-Text{
     flex: 9;

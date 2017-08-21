@@ -181,7 +181,7 @@
                                             });
                                             div.css('padding-left', (lvl + 1) * 15 + 10 + "px");
                                             
-                                            if(o.opt.activeItem.indexOf(ele[o.opt.identityField]) >= 0){
+                                            if(o.opt.activeItem.indexOf(ele[o.opt.identityField] * 1) >= 0){
                                                 st = "open";
                                             }
                                             var icon = $('<img/>', {
@@ -222,7 +222,7 @@
                                     var r = $(this).data();
                                     r.selected = false;
                                     o.target.trigger('onClick', r);
-                                    o.opt.activeItem.splice(o.opt.activeItem.indexOf($(this).data().id), 1);
+                                    o.opt.activeItem.splice(o.opt.activeItem.indexOf($(this).data().id * 1), 1);
                                 }
                             }
                         

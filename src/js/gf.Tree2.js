@@ -183,6 +183,8 @@
                                             
                                             if(o.opt.activeItem.indexOf(ele[o.opt.identityField] * 1) >= 0){
                                                 st = "open";
+                                                div.data("st", st);
+                                                div.attr("data-st", st);
                                             }
                                             var icon = $('<img/>', {
                                                 "class": "gfTreeContent-Icon",

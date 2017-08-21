@@ -19,7 +19,7 @@
     }
 
     //Load dependencies first
-    $.cachedScript('../node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js').done(function(){
+    $.cachedScript('node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js').done(function(){
         //建構式
         gfTree = function (element, options) {
 

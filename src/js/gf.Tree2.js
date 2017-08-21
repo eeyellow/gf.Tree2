@@ -67,20 +67,20 @@
             */
             iconType: {
                 'folder': {
-                    'close': './src/img/folder.png',
-                    'open': './src/img/folder-check.png',
+                    'close': 'node_modules/gf.Tree2/src/img/folder.png',
+                    'open': 'node_modules/gf.Tree2/src/img/folder-check.png',
                 },
                 '向量':{
-                    'close': './src/img/document.png',
-                    'open': './src/img/document-check.png',
+                    'close': 'node_modules/gf.Tree2/src/img/document.png',
+                    'open': 'node_modules/gf.Tree2/src/img/document-check.png',
                 },
                 'kmlurl':{
-                    'close': './src/img/document.png',
-                    'open': './src/img/document-check.png',
+                    'close': 'node_modules/gf.Tree2/src/img/document.png',
+                    'open': 'node_modules/gf.Tree2/src/img/document-check.png',
                 },
                 'wms':{
-                    'close': './src/img/document.png',
-                    'open': './src/img/document-check.png',
+                    'close': 'node_modules/gf.Tree2/src/img/document.png',
+                    'open': 'node_modules/gf.Tree2/src/img/document-check.png',
                 }
             },
             scrollColor: '#527100',
@@ -111,32 +111,35 @@
             _style: function () {
                 var o = this;
                 o.target.css(o.opt.css);
-                o.opt.arrData.filter(function(x){ return x[o.opt.parentField] == 0; }).forEach(function(ele){
-                    var div = $('<div/>', {
-                        "class": "gfTreeItem",
-                        "data-id": ele[o.opt.identityField],
-                        "data-type": ele[o.opt.iconField],
-                        "data-url": ele[o.opt.kmlField],
-                        "data-layerid": ele[o.opt.layeridField],
-                        "data-parentid": ele[o.opt.parentField],
-                        "data-lvl": 0,
-                        "data-st": "close",
-                        "data-path": ele[o.opt.identityField]
-                    });
-                    
-                    var icon = $('<img/>', {
-                        "class": "gfTreeContent-Icon",
-                        "src": o.opt.iconType[ele[o.opt.iconField]]["close"]
-                    });
-                    div.append(icon);
-                    var span = $('<span/>',{
-                        "class": "gfTreeContent-Text",
-                        "text": ele[o.opt.nameField]
-                    });
-                    div.append(span);
+                o.opt.arrData
+                    .filter(function(x){ return x[o.opt.parentField] == 0; })
+                    .sort(function(a, b){ return a[o.opt.identityField] < b[o.opt.identityField]; })
+                    .forEach(function(ele){
+                        var div = $('<div/>', {
+                            "class": "gfTreeItem",
+                            "data-id": ele[o.opt.identityField],
+                            "data-type": ele[o.opt.iconField],
+                            "data-url": ele[o.opt.kmlField],
+                            "data-layerid2d": ele[o.opt.layeridField],
+                            "data-parentid": ele[o.opt.parentField],
+                            "data-lvl": 0,
+                            "data-st": "close",
+                            "data-path": ele[o.opt.identityField]
+                        });
+                        
+                        var icon = $('<img/>', {
+                            "class": "gfTreeContent-Icon",
+                            "src": o.opt.iconType[ele[o.opt.iconField]]["close"]
+                        });
+                        div.append(icon);
+                        var span = $('<span/>',{
+                            "class": "gfTreeContent-Text",
+                            "text": ele[o.opt.nameField]
+                        });
+                        div.append(span);
 
-                    o.target.append(div);
-                });
+                        o.target.append(div);
+                    });
 
                 o.target.niceScroll({ cursorcolor: o.opt.scrollColor});
             },
@@ -170,7 +173,7 @@
                                                 "data-id": ele[o.opt.identityField],
                                                 "data-type": ele[o.opt.iconField],
                                                 "data-url": ele[o.opt.kmlField],
-                                                "data-layerid": ele[o.opt.layeridField],
+                                                "data-layerid2d": ele[o.opt.layeridField],
                                                 "data-parentid": ele[o.opt.parentField],
                                                 "data-lvl": lvl + 1,
                                                 "data-st": "close",
@@ -197,7 +200,9 @@
                                 }
                                 else{                       
                                     o.opt.activeItem.push($(this).data().id);
-                                    o.target.trigger('onClick', $(this).data());
+                                    var r = $(this).data();
+                                    r.selected = true;
+                                    o.target.trigger('onClick', r);
                                 }
                             }
                             else{
@@ -214,6 +219,9 @@
                                     });
                                 }
                                 else{
+                                    var r = $(this).data();
+                                    r.selected = false;
+                                    o.target.trigger('onClick', r);
                                     o.opt.activeItem.splice(o.opt.activeItem.indexOf($(this).data().id), 1);
                                 }
                             }

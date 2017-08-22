@@ -47,7 +47,7 @@
                 'width': '300px',
                 'height': '300px',
                 'background-color': '#e3f0db',
-                'overflow-y': 'auto',
+                'overflow-y': 'hidden',
                 'overflow-x': 'hidden',
                 'display': 'inline-block'
             },
@@ -79,9 +79,22 @@
                 }
             },
             scrollColor: '#527100',
+            /*
             switch: {
                 on: 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4Ij4KPHBhdGggc3R5bGU9ImZpbGw6I0E0RTI3NjsiIGQ9Ik0zNzIuMzY0LDM0OS4wOTFjLTUxLjMzLDAtOTMuMDkxLTQxLjc2MS05My4wOTEtOTMuMDkxczQxLjc2MS05My4wOTEsOTMuMDkxLTkzLjA5MSAgYzEyLjg1MywwLDIzLjI3My0xMC40MiwyMy4yNzMtMjMuMjczYzAtMTIuODUzLTEwLjQyLTIzLjI3My0yMy4yNzMtMjMuMjczSDEzOS42MzZDNjIuNjQxLDExNi4zNjQsMCwxNzkuMDA1LDAsMjU2ICBzNjIuNjQxLDEzOS42MzYsMTM5LjYzNiwxMzkuNjM2aDIzMi43MjdjMTIuODUzLDAsMjMuMjczLTEwLjQyLDIzLjI3My0yMy4yNzNTMzg1LjIxNiwzNDkuMDkxLDM3Mi4zNjQsMzQ5LjA5MXoiLz4KPGNpcmNsZSBzdHlsZT0iZmlsbDojRkZGRkZGOyIgY3g9IjM3Mi4zNjQiIGN5PSIyNTYiIHI9IjExNi4zNjQiLz4KPHBhdGggc3R5bGU9ImZpbGw6I0E5QThBRTsiIGQ9Ik0zNzIuMzY0LDM5NS42MzZjLTc2Ljk5NSwwLTEzOS42MzYtNjIuNjQxLTEzOS42MzYtMTM5LjYzNnM2Mi42NDEtMTM5LjYzNiwxMzkuNjM2LTEzOS42MzYgIFM1MTIsMTc5LjAwNSw1MTIsMjU2UzQ0OS4zNTksMzk1LjYzNiwzNzIuMzY0LDM5NS42MzZ6IE0zNzIuMzY0LDE2Mi45MDljLTUxLjMzLDAtOTMuMDkxLDQxLjc2MS05My4wOTEsOTMuMDkxICBzNDEuNzYxLDkzLjA5MSw5My4wOTEsOTMuMDkxUzQ2NS40NTUsMzA3LjMzLDQ2NS40NTUsMjU2UzQyMy42OTQsMTYyLjkwOSwzNzIuMzY0LDE2Mi45MDl6Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=',
                 off: 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4Ij4KPHBhdGggc3R5bGU9ImZpbGw6Izc3NzU3RjsiIGQ9Ik0zNzIuMzY0LDExNi4zNjRIMTM5LjYzNkM2Mi42NDEsMTE2LjM2NCwwLDE3OS4wMDUsMCwyNTZzNjIuNjQxLDEzOS42MzYsMTM5LjYzNiwxMzkuNjM2aDIzMi43MjcgIEM0NDkuMzU5LDM5NS42MzYsNTEyLDMzMi45OTUsNTEyLDI1NlM0NDkuMzU5LDExNi4zNjQsMzcyLjM2NCwxMTYuMzY0eiIvPgo8Y2lyY2xlIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBjeD0iMTM5LjYzNiIgY3k9IjI1NiIgcj0iMTE2LjM2NCIvPgo8cGF0aCBzdHlsZT0iZmlsbDojQTlBOEFFOyIgZD0iTTEzOS42MzYsMzk1LjYzNkM2Mi42NDEsMzk1LjYzNiwwLDMzMi45OTUsMCwyNTZzNjIuNjQxLTEzOS42MzYsMTM5LjYzNi0xMzkuNjM2ICBTMjc5LjI3MywxNzkuMDA1LDI3OS4yNzMsMjU2UzIxNi42MzIsMzk1LjYzNiwxMzkuNjM2LDM5NS42MzZ6IE0xMzkuNjM2LDE2Mi45MDljLTUxLjMzLDAtOTMuMDkxLDQxLjc2MS05My4wOTEsOTMuMDkxICBzNDEuNzYxLDkzLjA5MSw5My4wOTEsOTMuMDkxUzIzMi43MjcsMzA3LjMzLDIzMi43MjcsMjU2UzE5MC45NjcsMTYyLjkwOSwxMzkuNjM2LDE2Mi45MDl6Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo='
+            },
+            */
+            toolIcon: {
+                list: {
+                    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAs0lEQVQ4T83TMWoCURQF0DOWCgquwSauQEHrZBvBLkWyFbFSwT0IFgp2CRgtzQZC+hRZQhgQ+ajNMG/AX79/uI/LywS/LNhTKdjEAw5lUqcJd+jjFRusCsBjTPP5FHzHEC/YYlkAnGB+CdbRwVcB6Gq08lK62Ecl/EQPb1hHlPKBQWQpjVMpx6iVyzjnv2nLNbTxW0ZOwQWe8YTviFJmGOERPxGXkqdt4S9q5TLOzVLuE/wHIYoeFULOg3MAAAAASUVORK5CYII=',
+                    desc: '圖層清單'
+                },
+                search: {
+                    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABL0lEQVQ4T63UzyuEQRgA4GfxV8iFAyIXxVkOUqI4OChELm6khAil3OVK4U/gKEeKk/IjcRflxFmamq3d7fv227U715l55n3feWdy6jxyKV4LxtCFRvzgASdZ5yeBMxjCJZ7whh60YRFLuE6DS8FJdGO7TCRHOMB90ppCcBDDWM1KC+dYwEfp2kLwFCHdSkY75rGWBnZiowowOHfoSwPHEdD9SsKLa86wh5fCPfmU6w52YBPTVUR4i/5ylxKadrZCMFzKHNbLgQMYxUoF6EW85c9yYJibQG9MP8kNz/AY77ErfrPAMD+FEVzhGa/x6bXGZr7BcnzXoReL0LTPoTmmHz6HJnzjEaFVGmKUod6h7kVoGphVxlT0v2A4MBGtBSxFd7BbK5hHt3CIr3qARfX+A6FHOhXx8HvKAAAAAElFTkSuQmCC',
+                    desc: '圖層搜尋'
+                }
+                
             },
             onClick: undefined,            
             onInitComplete: undefined
@@ -103,6 +116,34 @@
             _style: function () {
                 var o = this;
                 o.target.css(o.opt.css);
+
+                //上方工具列
+                var toolbar = $('<div/>',{ 'class': 'gfTreeToolbar' });
+                Object.keys(o.opt.toolIcon).forEach(function(icontype){
+                    var iconimg = $('<img/>', {
+                        'class'     : 'gfTreeToolbar-Icon', 
+                        'src'       : o.opt.toolIcon[icontype].src,
+                        'title'     : o.opt.toolIcon[icontype].desc,
+                        'data-type' : icontype
+                    });                    
+                    toolbar.append(iconimg);
+                });
+                o.target.append(toolbar);
+
+                //搜尋工具容器
+                var searchContainer = $('<div/>',{ 'class': 'gfTreeSearchContainer' });
+                var searchInput = $('<input/>', { 'class': 'gfTreeSearchInput', 'placeholder': '請輸入圖層關鍵字' });
+                var searchResultList = $('<div/>', { 'class': 'gfTreeSearchResultList' });                
+                searchContainer.append(searchInput);
+                searchContainer.append(searchResultList);
+                o.target.append(searchContainer);
+                searchResultList.height(o.target.height() - toolbar.height() - searchInput.height());
+
+                //圖層清單容器
+                var itemlist = $('<div/>',{ 'class': 'gfTreeItemList' });                
+                itemlist.height(o.target.height() - toolbar.height());
+
+                //產生圖層清單並塞到容器中
                 o.opt.arrData
                     .filter(function(x){ return x[o.opt.parentField] == 0; })
                     .sort(function(a, b){ return a[o.opt.identityField] * 1 > b[o.opt.identityField] * 1; })
@@ -130,13 +171,18 @@
                         });
                         div.append(span);
 
-                        o.target.append(div);
+                        itemlist.append(div);                        
                     });
+                
+                o.target.append(itemlist);
 
-                o.target.niceScroll({ cursorcolor: o.opt.scrollColor});
+                //捲軸美化
+                o.target.find('.gfTreeItemList').niceScroll({ cursorcolor: o.opt.scrollColor});
+                o.target.find('.gfTreeSearchResultList').niceScroll({ cursorcolor: o.opt.scrollColor});
             },
             _event: function () {
                 var o = this;
+                //點擊圖層
                 o.target
                     .on('click', '.gfTreeItem', function(e){
                         var et = $(this);
@@ -221,9 +267,87 @@
                             }
                         
 
-                        o.target.getNiceScroll().resize();
+                        o.target.find('.gfTreeItemList').getNiceScroll().resize();
                     });
+                
+                //工具 - 搜尋
+                o.target
+                    .on('click', '.gfTreeToolbar-Icon[data-type="search"]', function(){
+                        o.target
+                            .find('.gfTreeItemList')
+                                .hide()
+                                .end()
+                            .find('.gfTreeSearchContainer')
+                                .show()
+                                .end()
+                    });
+                o.target
+                    .on('keyup', '.gfTreeSearchInput', function(e){
+                        var code = e.which;
+                        if(code == 13) { e.preventDefault(); }
+                        if(code == 32 || code == 13 || code == 188 || code == 186) {
+                            var val = $(this).val();
+                            var resultDiv = $('<div/>');
+                            o.opt.arrData
+                                .filter(function(x){ return x[o.opt.iconField] != "folder" && x[o.opt.nameField].indexOf(val.trim()) >= 0 ; })
+                                .forEach(function(ele){
+                                    var st = "close";
+                                    if(o.opt.activeItem.indexOf(ele[o.opt.identityField] * 1) >= 0){
+                                        st = "open";                                        
+                                    }
 
+                                    var div = $('<div/>', {
+                                        "class": "gfTreeItem",
+                                        "data-id": ele[o.opt.identityField],
+                                        "data-type": ele[o.opt.iconField],
+                                        "data-kmlurl": ele[o.opt.urlField],
+                                        "data-layerid2d": ele[o.opt.layeridField],
+                                        "data-parentid": ele[o.opt.parentField],
+                                        "data-lvl": 0,
+                                        "data-st": st,
+                                        "data-path": ele[o.opt.identityField]
+                                    });
+                                                                        
+                                    var icon = $('<img/>', {
+                                        "class": "gfTreeContent-Icon",
+                                        "src": o.opt.iconType[ele[o.opt.iconField]][st]
+                                    });
+                                    div.append(icon);
+                                    var span = $('<span/>',{
+                                        "class": "gfTreeContent-Text",
+                                        "text": ele[o.opt.nameField]
+                                    });
+                                    div.append(span);
+            
+                                    resultDiv.append(div);                        
+                                });
+                            o.target.find('.gfTreeSearchResultList')
+                                .html(resultDiv);
+                                
+                            o.target.find('.gfTreeSearchResultList').getNiceScroll().resize();
+                        }
+                        
+                              
+                    });
+                //工具 - 回到圖層清單
+                o.target
+                .on('click', '.gfTreeToolbar-Icon[data-type="list"]', function(){
+                    o.target
+                        .find('.gfTreeItemList')
+                            .show()
+                            .end()
+                        .find('.gfTreeSearchContainer')
+                            .hide()
+                            .end()
+                });
+
+                var delay = (function(){
+                    var timer = 0;
+                    return function(callback, ms){
+                        clearTimeout (timer);
+                        timer = setTimeout(callback, ms);
+                    };
+                })();
             },
 
             _getAllData: function(){

@@ -9,10 +9,6 @@
     flex-direction: row;
 }
 
-.gfTreeItem:first-child {
-    border-top-width: 1px;
-}
-
 .gfTreeItem:hover {
     background: #89bd00;
     color: #FFF;
@@ -27,4 +23,30 @@
 }
 .gfTreeContent-Text{
     flex: 9;
+}
+
+.gfTreeToolbar{
+    width: auto;    
+    background: #EBEFE7;
+    border-width: 1px 1px 3px 1px;
+    border-style: solid;
+    border-color: #CCC;
+    display: flex;
+    flex-direction: row;
+}
+.gfTreeToolbar-Icon{
+    width: 20px;
+    height: 20px;
+    padding: 0.4em 0.6em;
+}
+
+.gfTreeSearchContainer{
+    display: none;    
+}
+.gfTreeSearchInput{
+    padding: 0;
+    margin: 0;
+    height: 35px;
+    text-align: center;
+    width: 98.5%;
 }

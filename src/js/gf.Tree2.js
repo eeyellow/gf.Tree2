@@ -4,25 +4,25 @@
     var pluginName = 'gfTree2'; //Plugin名稱
     var gfTree;
 
-    if($.cachedScript == undefined){
-        $.cachedScript = function (url, options) {
-            // Allow user to set any option except for dataType, cache, and url
-            options = $.extend(options || {}, {
-                dataType: "script",
-                cache: true,
-                url: url
-            });
-            // Use $.ajax() since it is more flexible than $.getScript
-            // Return the jqXHR object so we can chain callbacks
-            return $.ajax(options);
-        };
-    }
-
     //Load dependencies first
-    $.cachedScript('node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js').done(function(){
+    $.when(
+        $.ajax({
+            url: 'node_modules/gf.tree2/src/css/gf.Tree2.css',
+            dataType: 'text',
+            cache: true
+        }).then(data => {
+            var style = $('<style/>',{ 'text': data });
+            $('head').append(style);
+        }),
+        $.ajax({
+            url: 'node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js',
+            dataType: 'script',
+            cache: true
+        })
+    ).done(function(){
         //建構式
         gfTree = function (element, options) {
-
+            
             this.target = element; //html container
             //this.prefix = pluginName + "_" + this.target.attr('id'); //prefix，for identity
             this.opt = {};
@@ -327,7 +327,7 @@
                             o.target.find('.gfTreeSearchResultList').getNiceScroll().resize();
                         }
                         
-                              
+                                
                     });
                 //工具 - 回到圖層清單
                 o.target
@@ -364,18 +364,18 @@
                 //先解除所有事件接口
                 this.target.off('onClick');
                 this.target.off('onInitComplete');
-                //綁定點擊事件接口
-                if (typeof (this.opt.onClick) === 'function') {
-                    this.target.on('onClick', this.opt.onClick);
-                }
-                if (typeof (this.opt.onInitComplete) === 'function') {
-                    this.target.on('onInitComplete', this.opt.onInitComplete);
-                }
-            }
-
-
-
-        };
+                            //綁定點擊事件接口
+                            if (typeof (this.opt.onClick) === 'function') {
+                                this.target.on('onClick', this.opt.onClick);
+                            }
+                            if (typeof (this.opt.onInitComplete) === 'function') {
+                                this.target.on('onInitComplete', this.opt.onInitComplete);
+                            }
+                        }
+            
+            
+            
+                    };
     });
 
     //實例化，揭露方法，回傳

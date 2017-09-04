@@ -22,7 +22,7 @@
     ).done(function(){
         //建構式
         gfTree = function (element, options) {
-            
+
             this.target = element; //html container
             //this.prefix = pluginName + "_" + this.target.attr('id'); //prefix，for identity
             this.opt = {};
@@ -57,6 +57,7 @@
             parentField: 'parent_id',//父層識別欄位
             isparentField: 'isparent',//是否為父層欄位
             iconField: 'type',//圖示類型欄位
+            sortField: 'seq',//排序欄位
             urlField: 'kmlurl',
             layeridField: 'layerid2d',
 
@@ -94,11 +95,11 @@
                     src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABL0lEQVQ4T63UzyuEQRgA4GfxV8iFAyIXxVkOUqI4OChELm6khAil3OVK4U/gKEeKk/IjcRflxFmamq3d7fv227U715l55n3feWdy6jxyKV4LxtCFRvzgASdZ5yeBMxjCJZ7whh60YRFLuE6DS8FJdGO7TCRHOMB90ppCcBDDWM1KC+dYwEfp2kLwFCHdSkY75rGWBnZiowowOHfoSwPHEdD9SsKLa86wh5fCPfmU6w52YBPTVUR4i/5ylxKadrZCMFzKHNbLgQMYxUoF6EW85c9yYJibQG9MP8kNz/AY77ErfrPAMD+FEVzhGa/x6bXGZr7BcnzXoReL0LTPoTmmHz6HJnzjEaFVGmKUod6h7kVoGphVxlT0v2A4MBGtBSxFd7BbK5hHt3CIr3qARfX+A6FHOhXx8HvKAAAAAElFTkSuQmCC',
                     desc: '圖層搜尋'
                 }
-                
+
             },
-            onClick: undefined,            
+            onClick: undefined,
             onInitComplete: undefined
-            
+
         };
 
         //方法
@@ -121,11 +122,11 @@
                 var toolbar = $('<div/>',{ 'class': 'gfTreeToolbar' });
                 Object.keys(o.opt.toolIcon).forEach(function(icontype){
                     var iconimg = $('<img/>', {
-                        'class'     : 'gfTreeToolbar-Icon', 
+                        'class'     : 'gfTreeToolbar-Icon',
                         'src'       : o.opt.toolIcon[icontype].src,
                         'title'     : o.opt.toolIcon[icontype].desc,
                         'data-type' : icontype
-                    });                    
+                    });
                     toolbar.append(iconimg);
                 });
                 o.target.append(toolbar);
@@ -133,20 +134,21 @@
                 //搜尋工具容器
                 var searchContainer = $('<div/>',{ 'class': 'gfTreeSearchContainer' });
                 var searchInput = $('<input/>', { 'class': 'gfTreeSearchInput', 'placeholder': '請輸入圖層關鍵字' });
-                var searchResultList = $('<div/>', { 'class': 'gfTreeSearchResultList' });                
+                var searchResultList = $('<div/>', { 'class': 'gfTreeSearchResultList' });
                 searchContainer.append(searchInput);
                 searchContainer.append(searchResultList);
                 o.target.append(searchContainer);
                 searchResultList.height(o.target.height() - toolbar.height() - searchInput.height());
 
                 //圖層清單容器
-                var itemlist = $('<div/>',{ 'class': 'gfTreeItemList' });                
+                var itemlist = $('<div/>',{ 'class': 'gfTreeItemList' });
                 itemlist.height(o.target.height() - toolbar.height());
 
                 //產生圖層清單並塞到容器中
                 o.opt.arrData
                     .filter(function(x){ return x[o.opt.parentField] == 0; })
-                    .sort(function(a, b){ return a[o.opt.identityField] * 1 > b[o.opt.identityField] * 1; })
+                    //.sort(function(a, b){ return a[o.opt.identityField] * 1 > b[o.opt.identityField] * 1; })
+                    .sort(function(a, b){ return a[o.opt.sortField] * 1 > b[o.opt.sortField] * 1; })
                     .forEach(function(ele){
                         var div = $('<div/>', {
                             "class": "gfTreeItem",
@@ -155,11 +157,12 @@
                             "data-kmlurl": ele[o.opt.urlField],
                             "data-layerid2d": ele[o.opt.layeridField],
                             "data-parentid": ele[o.opt.parentField],
+                            "data-sort": ele[o.opt.sortField],
                             "data-lvl": 0,
                             "data-st": "close",
                             "data-path": ele[o.opt.identityField]
                         });
-                        
+
                         var icon = $('<img/>', {
                             "class": "gfTreeContent-Icon",
                             "src": o.opt.iconType[ele[o.opt.iconField]]["close"]
@@ -171,9 +174,9 @@
                         });
                         div.append(span);
 
-                        itemlist.append(div);                        
+                        itemlist.append(div);
                     });
-                
+
                 o.target.append(itemlist);
 
                 //捲軸美化
@@ -192,8 +195,8 @@
                         var path = et.data().path;
                         var tp = et.data().type;
                         var pattern = new RegExp('^' + path + "_");
-                        
-                        
+
+
                             if(st == "close")
                             {
                                 $(this).data("st", "open");
@@ -204,7 +207,8 @@
                                 {
                                     o.opt.arrData
                                         .filter(function(x){ return x[o.opt.parentField] == eid; })
-                                        .sort(function(a, b){ return a[o.opt.identityField] * 1 < b[o.opt.identityField] * 1; })
+                                        //.sort(function(a, b){ return a[o.opt.identityField] * 1 < b[o.opt.identityField] * 1; })
+                                        .sort(function(a, b){ return a[o.opt.sortField] * 1 < b[o.opt.sortField] * 1; })
                                         .forEach(function(ele){
                                             var div = $('<div/>', {
                                                 "class": "gfTreeItem",
@@ -213,12 +217,13 @@
                                                 "data-kmlurl": ele[o.opt.urlField],
                                                 "data-layerid2d": ele[o.opt.layeridField],
                                                 "data-parentid": ele[o.opt.parentField],
+                                                "data-sort": ele[o.opt.sortField],
                                                 "data-lvl": lvl + 1,
                                                 "data-st": "close",
                                                 "data-path": path + "_" + ele[o.opt.identityField]
                                             });
                                             div.css('padding-left', (lvl + 1) * 15 + 10 + "px");
-                                            
+
                                             if(o.opt.activeItem.indexOf(ele[o.opt.identityField] * 1) >= 0){
                                                 st = "open";
                                                 div.data("st", st);
@@ -238,7 +243,7 @@
                                             et.after(div);
                                         });
                                 }
-                                else{                       
+                                else{
                                     o.opt.activeItem.push($(this).data().id);
                                     var r = $(this).data();
                                     r.selected = true;
@@ -265,11 +270,11 @@
                                     o.opt.activeItem.splice(o.opt.activeItem.indexOf($(this).data().id * 1), 1);
                                 }
                             }
-                        
+
 
                         o.target.find('.gfTreeItemList').getNiceScroll().resize();
                     });
-                
+
                 //工具 - 搜尋
                 o.target
                     .on('click', '.gfTreeToolbar-Icon[data-type="search"]', function(){
@@ -293,7 +298,7 @@
                                 .forEach(function(ele){
                                     var st = "close";
                                     if(o.opt.activeItem.indexOf(ele[o.opt.identityField] * 1) >= 0){
-                                        st = "open";                                        
+                                        st = "open";
                                     }
 
                                     var div = $('<div/>', {
@@ -307,7 +312,7 @@
                                         "data-st": st,
                                         "data-path": ele[o.opt.identityField]
                                     });
-                                                                        
+
                                     var icon = $('<img/>', {
                                         "class": "gfTreeContent-Icon",
                                         "src": o.opt.iconType[ele[o.opt.iconField]][st]
@@ -318,16 +323,16 @@
                                         "text": ele[o.opt.nameField]
                                     });
                                     div.append(span);
-            
-                                    resultDiv.append(div);                        
+
+                                    resultDiv.append(div);
                                 });
                             o.target.find('.gfTreeSearchResultList')
                                 .html(resultDiv);
-                                
+
                             o.target.find('.gfTreeSearchResultList').getNiceScroll().resize();
                         }
-                        
-                                
+
+
                     });
                 //工具 - 回到圖層清單
                 o.target
@@ -372,9 +377,9 @@
                                 this.target.on('onInitComplete', this.opt.onInitComplete);
                             }
                         }
-            
-            
-            
+
+
+
                     };
     });
 

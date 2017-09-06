@@ -4,16 +4,16 @@
     var pluginName = 'gfTree2'; //Plugin名稱
     var gfTree;
 
+    $.ajax({
+        url: 'node_modules/gf.tree2/src/css/gf.Tree2.css',
+        dataType: 'text',
+        cache: true
+    }).then(data => {
+        var style = $('<style/>',{ 'text': data });
+        $('head').append(style);
+    });
     //Load dependencies first
     $.when(
-        $.ajax({
-            url: 'node_modules/gf.tree2/src/css/gf.Tree2.css',
-            dataType: 'text',
-            cache: true
-        }).then(data => {
-            var style = $('<style/>',{ 'text': data });
-            $('head').append(style);
-        }),
         $.ajax({
             url: 'node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js',
             dataType: 'script',
@@ -45,11 +45,10 @@
 
             css: {
                 'width': '300px',
-                'height': '300px',
+
                 'background-color': '#e3f0db',
                 'overflow-y': 'hidden',
-                'overflow-x': 'hidden',
-                'display': 'inline-block'
+                'overflow-x': 'hidden'
             },
 
             identityField: 'id',//識別欄位

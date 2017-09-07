@@ -8,7 +8,7 @@
         url: 'node_modules/gf.tree2/src/css/gf.Tree2.css',
         dataType: 'text',
         cache: true
-    }).then(data => {
+    }).then(function(data){
         var style = $('<style/>',{ 'text': data });
         $('head').append(style);
     });

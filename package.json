@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "jquery": "^3.2.1",
+    "jquery-contextmenu": "^2.6.3",
     "jquery.nicescroll": "^3.7.6"
   }
 }

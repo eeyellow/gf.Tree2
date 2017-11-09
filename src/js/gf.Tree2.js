@@ -14,10 +14,31 @@
         });
         $('head').append(style);
     });
+
+    $.ajax({
+        url: 'node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.css',
+        dataType: 'text',
+        cache: true
+    }).then(function (data) {
+        var style = $('<style/>', {
+            'text': data
+        });
+        $('head').append(style);
+    });
     //Load dependencies first
     $.when(
         $.ajax({
             url: 'node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js',
+            dataType: 'script',
+            cache: true
+        }),
+        $.ajax({
+            url: 'node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.js',
+            dataType: 'script',
+            cache: true
+        }),
+        $.ajax({
+            url: 'node_modules/jquery-contextmenu/dist/jquery.ui.position.min.js',
             dataType: 'script',
             cache: true
         })

@@ -397,6 +397,25 @@
                 o.target.on('click', '.gfTreeToolbar-Icon[data-type="clear"]', function () {
                     o._removeActiveData();
                 });
+
+                //右鍵選單
+                $.contextMenu({
+                    selector: o._getSelector(o.target) + " .gfTreeItemList .gfTreeItem",
+                    build: function($trigger, e) {
+                        var target = $trigger.data();
+                        return {
+                            callback: function(key, options) {
+                                console.log(key);
+                                console.log(target);
+                            },
+                            items: {
+                                "favorite"  : {name: "加入最愛", icon: "fa-heart", disabled: (target.type == "folder")},
+                                "sep1"  : "---------",
+                                "quit"  : {name: "離開", icon: "fa-sign-out"}
+                            }
+                        };
+                    }
+                });
             },
 
             _getAllData: function () {
@@ -446,9 +465,30 @@
                 if (typeof (this.opt.onInitComplete) === 'function') {
                     this.target.on('onInitComplete', this.opt.onInitComplete);
                 }
+            },
+
+            _getSelector: function(jqueryObj){
+                var selector =
+                    jqueryObj
+                        .parents()
+                        .map(function() { return this.tagName; })
+                        .get()
+                        .reverse()
+                        .concat([this.nodeName])
+                        .join(">");
+
+                var id = jqueryObj.attr("id");
+                if (id) {
+                    selector += "#"+ id;
+                }
+
+                var classNames = jqueryObj.attr("class");
+                if (classNames) {
+                    selector += "." + $.trim(classNames).replace(/\s/gi, ".");
+                }
+
+                return selector;
             }
-
-
 
         };
     });

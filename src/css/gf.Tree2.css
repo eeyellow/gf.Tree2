@@ -26,7 +26,8 @@
 }
 
 .gfTreeToolbar{
-    width: auto;    
+    width: auto;
+    height: 36px;
     background: #EBEFE7;
     border-width: 1px 1px 3px 1px;
     border-style: solid;
@@ -41,7 +42,7 @@
 }
 
 .gfTreeSearchContainer{
-    display: none;    
+    display: none;
 }
 .gfTreeSearchInput{
     padding: 0;

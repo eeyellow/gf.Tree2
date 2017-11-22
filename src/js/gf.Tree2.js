@@ -173,13 +173,13 @@
                 searchContainer.append(searchInput);
                 searchContainer.append(searchResultList);
                 o.target.append(searchContainer);
-                searchResultList.height(o.target.height() - toolbar.height() - searchInput.height());
+                searchResultList.height(o.target.height() - toolbar.outerHeight() - searchInput.outerHeight());
 
                 //圖層清單容器
                 var itemlist = $('<div/>', {
                     'class': 'gfTreeItemList'
                 });
-                itemlist.height(o.target.height() - toolbar.height());
+                itemlist.height(o.target.height() - toolbar.outerHeight());
 
                 //產生圖層清單並塞到容器中
                 o.opt.arrData

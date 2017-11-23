@@ -124,8 +124,8 @@
 
             },
             onClick: undefined,
-            onInitComplete: undefined
-
+            onInitComplete: undefined,
+            onAddFavorite: undefined
         };
 
         //方法
@@ -405,8 +405,9 @@
                         var target = $trigger.data();
                         return {
                             callback: function(key, options) {
-                                console.log(key);
-                                console.log(target);
+                                //console.log(key);
+                                //console.log(target);
+                                o._contextMenuAction(key, target);
                             },
                             items: {
                                 "favorite"  : {name: "加入最愛", icon: "fa-heart", disabled: (target.type == "folder")},
@@ -453,17 +454,30 @@
                 o.opt.activeItem = [];
             },
 
+            _contextMenuAction: function(_action, _value){
+                var o = this;
+                switch(_action){
+                    case "favorite":
+                        o.target.trigger('onAddFavorite',  _value);
+                        break;
+                }
+            },
+
             //註冊事件接口
             _subscribeEvents: function () {
                 //先解除所有事件接口
                 this.target.off('onClick');
                 this.target.off('onInitComplete');
+                this.target.off('onAddFavorite');
                 //綁定點擊事件接口
                 if (typeof (this.opt.onClick) === 'function') {
                     this.target.on('onClick', this.opt.onClick);
                 }
                 if (typeof (this.opt.onInitComplete) === 'function') {
                     this.target.on('onInitComplete', this.opt.onInitComplete);
+                }
+                if (typeof (this.opt.onAddFavorite) === 'function') {
+                    this.target.on('onAddFavorite', this.opt.onAddFavorite);
                 }
             },
 

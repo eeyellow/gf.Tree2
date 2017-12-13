@@ -426,7 +426,7 @@
             _getActiveData: function () {
                 var o = this;
                 return o.opt.arrData.filter(function (ele) {
-                    return o.opt.activeItem.indexOf(ele[o.opt.identityField]) >= 0;
+                    return o.opt.activeItem.indexOf(ele[o.opt.identityField] * 1) >= 0;
                 });
             },
             _getDataById: function (_id) {

@@ -82,6 +82,9 @@
             sortField: 'seq', //排序欄位
             urlField: 'kmlurl',
             layeridField: 'layerid2d',
+            flytoXField: 'x',
+            flytoYField: 'y',
+            flytoZField: 'z',
 
             iconType: {
                 'folder': {
@@ -202,7 +205,10 @@
                             "data-sort": ele[o.opt.sortField],
                             "data-lvl": 0,
                             "data-st": "close",
-                            "data-path": ele[o.opt.identityField]
+                            "data-path": ele[o.opt.identityField],
+                            "data-x": ele[o.opt.flytoXField],
+                            "data-y": ele[o.opt.flytoYField],
+                            "data-z": ele[o.opt.flytoZField]
                         });
 
                         var icon = $('<img/>', {
@@ -268,7 +274,10 @@
                                             "data-sort": ele[o.opt.sortField],
                                             "data-lvl": lvl + 1,
                                             "data-st": "close",
-                                            "data-path": path + "_" + ele[o.opt.identityField]
+                                            "data-path": path + "_" + ele[o.opt.identityField],
+                                            "data-x": ele[o.opt.flytoXField],
+                                            "data-y": ele[o.opt.flytoYField],
+                                            "data-z": ele[o.opt.flytoZField]
                                         });
                                         div.css('padding-left', (lvl + 1) * 15 + 10 + "px");
 
@@ -358,7 +367,10 @@
                                         "data-parentid": ele[o.opt.parentField],
                                         "data-lvl": 0,
                                         "data-st": st,
-                                        "data-path": ele[o.opt.identityField]
+                                        "data-path": ele[o.opt.identityField],
+                                        "data-x": ele[o.opt.flytoXField],
+                                        "data-y": ele[o.opt.flytoYField],
+                                        "data-z": ele[o.opt.flytoZField]
                                     });
 
                                     var icon = $('<img/>', {

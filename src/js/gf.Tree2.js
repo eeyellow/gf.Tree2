@@ -125,7 +125,8 @@
             },
             onClick: undefined,
             onInitComplete: undefined,
-            onAddFavorite: undefined
+            onAddFavorite: undefined,
+            onSetFlyto: undefined,
         };
 
         //方法
@@ -411,6 +412,7 @@
                             },
                             items: {
                                 "favorite"  : {name: "加入最愛", icon: "fa-heart", disabled: (target.type == "folder")},
+                                "flyto"  : {name: "定位圖層", icon: "fa-dot-circle-o", disabled: (target.type == "folder")},
                                 "sep1"  : "---------",
                                 "quit"  : {name: "離開", icon: "fa-sign-out"}
                             }
@@ -460,6 +462,9 @@
                     case "favorite":
                         o.target.trigger('onAddFavorite',  _value);
                         break;
+                    case "flyto":
+                        o.target.trigger('onSetFlyto',  _value);
+                        break;
                 }
             },
 
@@ -469,6 +474,7 @@
                 this.target.off('onClick');
                 this.target.off('onInitComplete');
                 this.target.off('onAddFavorite');
+                this.target.off('onSetFlyto');
                 //綁定點擊事件接口
                 if (typeof (this.opt.onClick) === 'function') {
                     this.target.on('onClick', this.opt.onClick);
@@ -478,6 +484,9 @@
                 }
                 if (typeof (this.opt.onAddFavorite) === 'function') {
                     this.target.on('onAddFavorite', this.opt.onAddFavorite);
+                }
+                if (typeof (this.opt.onSetFlyto) === 'function') {
+                    this.target.on('onSetFlyto', this.opt.onSetFlyto);
                 }
             },
 

@@ -191,9 +191,9 @@
                         return x[o.opt.parentField] == 0;
                     })
                     //.sort(function(a, b){ return a[o.opt.identityField] * 1 > b[o.opt.identityField] * 1; })
-                    .sort(function (a, b) {
-                        return a[o.opt.sortField] * 1 > b[o.opt.sortField] * 1;
-                    })
+                    //.sort(function (a, b) {
+                    //    return a[o.opt.sortField] * 1 > b[o.opt.sortField] * 1;
+                    //})
                     .forEach(function (ele) {
                         var div = $('<div/>', {
                             "class": "gfTreeItem",
@@ -260,9 +260,9 @@
                                         return x[o.opt.parentField] == eid;
                                     })
                                     //.sort(function(a, b){ return a[o.opt.identityField] * 1 < b[o.opt.identityField] * 1; })
-                                    .sort(function (a, b) {
-                                        return a[o.opt.sortField] * 1 < b[o.opt.sortField] * 1;
-                                    })
+                                    //.sort(function (a, b) {
+                                    //    return a[o.opt.sortField] * 1 < b[o.opt.sortField] * 1;
+                                    //})
                                     .forEach(function (ele) {
                                         var div = $('<div/>', {
                                             "class": "gfTreeItem",

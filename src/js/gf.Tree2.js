@@ -163,10 +163,14 @@
                 });
                 o.target.append(toolbar);
 
+                //子容器
+                var subContainer = $('<div/>').appendTo(o.target);
+                subContainer.height(o.target.height() - toolbar.outerHeight());
+
                 //搜尋工具容器
                 var searchContainer = $('<div/>', {
                     'class': 'gfTreeSearchContainer'
-                });
+                }).appendTo(subContainer);
                 var searchInput = $('<input/>', {
                     'class': 'gfTreeSearchInput',
                     'placeholder': '請輸入圖層關鍵字'
@@ -176,13 +180,12 @@
                 });
                 searchContainer.append(searchInput);
                 searchContainer.append(searchResultList);
-                o.target.append(searchContainer);
                 searchResultList.height(o.target.height() - toolbar.outerHeight() - searchInput.outerHeight());
 
                 //圖層清單容器
                 var itemlist = $('<div/>', {
                     'class': 'gfTreeItemList'
-                });
+                }).appendTo(subContainer);
                 itemlist.height(o.target.height() - toolbar.outerHeight());
 
                 //產生圖層清單並塞到容器中
@@ -225,7 +228,6 @@
                         itemlist.append(div);
                     });
 
-                o.target.append(itemlist);
 
                 //捲軸美化
                 o.target.find('.gfTreeItemList').niceScroll({
@@ -332,12 +334,10 @@
                 o.target
                     .on('click', '.gfTreeToolbar-Icon[data-type="search"]', function () {
                         o.target
-                            .find('.gfTreeItemList')
-                            .hide()
-                            .end()
                             .find('.gfTreeSearchContainer')
                             .show()
-                            .end()
+                            .siblings()
+                            .hide()
                     });
                 o.target
                     .on('keyup', '.gfTreeSearchInput', function (e) {
@@ -400,10 +400,8 @@
                         o.target
                             .find('.gfTreeItemList')
                             .show()
-                            .end()
-                            .find('.gfTreeSearchContainer')
+                            .siblings()
                             .hide()
-                            .end()
                     });
 
                 //工具 - 清除圖層

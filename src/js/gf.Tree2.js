@@ -123,12 +123,17 @@
                 clear: {
                     src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABqUlEQVQ4T53Uu+vPURzH8cfPfRMpE2WwMEgui5ESYmFxmaRcMlhsklgsNnL5ZXHJwsyAMsklyh+AkoWiTOTaS+fw+R2f7yWnPvX5nM95P9/v83pfJvxds/Gl8/1frxPFaiEe4Awme0gL8AMfRnmpwER3C5uxv4GuxU18x3Y8GwatwJzpgy4vgFkF8hmHcXkQtAtsoQdwCcdwqgEEGHAcTFktMD+X4TlmYhg0V48Er7vEFrgNVzC3HPo5Apok7cHtCu0C1+Ahpje3GAX9itV4Ebs2wk24jnk90IO42Gj6Hjtxry/CureklNDKEdCt2IE3wzRcjHflwDnsHQKNNEncCjzqi3AV7uJlJ3v7cLbUaLWJpvX6cXge6/C01XAaThSNPmI37iCO0kXfsAvHS0cdwgWsx33E0T9JyV7a71opnZPIM7+03iecxtECqNA/yvQVdn52E5MaS7TR7AY24HEZFBsxBToIGOgc1MS8wgwsKpodKSFFii1d6DBgvUZNTMZXJtHVTuYzNDKJEvVSvB0HGPskJh3xuxuaFWhK58mgpPTYjL81boRjE38B5LBgFUVPPZYAAAAASUVORK5CYII=',
                     desc: '清除圖層'
-                }
+                },
+                // history: {
+                //     src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABqUlEQVQ4T53Uu+vPURzH8cfPfRMpE2WwMEgui5ESYmFxmaRcMlhsklgsNnL5ZXHJwsyAMsklyh+AkoWiTOTaS+fw+R2f7yWnPvX5nM95P9/v83pfJvxds/Gl8/1frxPFaiEe4Awme0gL8AMfRnmpwER3C5uxv4GuxU18x3Y8GwatwJzpgy4vgFkF8hmHcXkQtAtsoQdwCcdwqgEEGHAcTFktMD+X4TlmYhg0V48Er7vEFrgNVzC3HPo5Apok7cHtCu0C1+Ahpje3GAX9itV4Ebs2wk24jnk90IO42Gj6Hjtxry/CureklNDKEdCt2IE3wzRcjHflwDnsHQKNNEncCjzqi3AV7uJlJ3v7cLbUaLWJpvX6cXge6/C01XAaThSNPmI37iCO0kXfsAvHS0cdwgWsx33E0T9JyV7a71opnZPIM7+03iecxtECqNA/yvQVdn52E5MaS7TR7AY24HEZFBsxBToIGOgc1MS8wgwsKpodKSFFii1d6DBgvUZNTMZXJtHVTuYzNDKJEvVSvB0HGPskJh3xuxuaFWhK58mgpPTYjL81boRjE38B5LBgFUVPPZYAAAAASUVORK5CYII=',
+                //     desc: '歷史圖層'
+                // }
 
             },
             onClick: undefined,
             onInitComplete: undefined,
             onAddFavorite: undefined,
+            onAddLayerTheme: undefined,
             onSetFlyto: undefined,
         };
 
@@ -166,6 +171,14 @@
                 //子容器
                 var subContainer = $('<div/>').appendTo(o.target);
                 subContainer.height(o.target.height() - toolbar.outerHeight());
+
+
+                //歷史圖層
+                // var historyContainer = $('<div/>', {
+                //     'class': 'gfTreeHistoryContainer',
+                //     'text': '1234'
+                // }).appendTo(subContainer);
+
 
                 //搜尋工具容器
                 var searchContainer = $('<div/>', {
@@ -404,6 +417,16 @@
                             .hide()
                     });
 
+                //工具 - 歷史圖層
+                // o.target
+                //     .on('click', '.gfTreeToolbar-Icon[data-type="history"]', function () {
+                //         o.target
+                //             .find('.gfTreeHistoryContainer')
+                //             .show()
+                //             .siblings()
+                //             .hide()
+                //     });
+
                 //工具 - 清除圖層
                 o.target.on('click', '.gfTreeToolbar-Icon[data-type="clear"]', function () {
                     o._removeActiveData();
@@ -422,6 +445,7 @@
                             },
                             items: {
                                 "favorite"  : {name: "加入最愛", icon: "fa-heart", disabled: (target.type == "folder")},
+                                "layertheme"  : {name: "加入主題圖", icon: "fa-star", disabled: (target.type == "folder")},
                                 "flyto"  : {name: "定位圖層", icon: "fa-dot-circle-o", disabled: (target.type == "folder")},
                                 "sep1"  : "---------",
                                 "quit"  : {name: "離開", icon: "fa-sign-out"}
@@ -472,6 +496,9 @@
                     case "favorite":
                         o.target.trigger('onAddFavorite',  _value);
                         break;
+                    case "layertheme":
+                        o.target.trigger('onAddLayerTheme',  _value);
+                        break;
                     case "flyto":
                         o.target.trigger('onSetFlyto',  _value);
                         break;
@@ -484,6 +511,7 @@
                 this.target.off('onClick');
                 this.target.off('onInitComplete');
                 this.target.off('onAddFavorite');
+                this.target.off('onAddLayerTheme');
                 this.target.off('onSetFlyto');
                 //綁定點擊事件接口
                 if (typeof (this.opt.onClick) === 'function') {
@@ -494,6 +522,9 @@
                 }
                 if (typeof (this.opt.onAddFavorite) === 'function') {
                     this.target.on('onAddFavorite', this.opt.onAddFavorite);
+                }
+                if (typeof (this.opt.onAddLayerTheme) === 'function') {
+                    this.target.on('onAddLayerTheme', this.opt.onAddLayerTheme);
                 }
                 if (typeof (this.opt.onSetFlyto) === 'function') {
                     this.target.on('onSetFlyto', this.opt.onSetFlyto);

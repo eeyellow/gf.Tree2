@@ -86,7 +86,11 @@
             flytoYField: 'y',
             flytoZField: 'z',
 
-            optionSource: '', //右鍵選單裡，下拉選單的資料來源
+            //右鍵選單裡，下拉選單的資料來源
+            optionSource: {
+                get: '',
+                post: '',
+            },
 
             iconType: {
                 'folder': {
@@ -438,14 +442,11 @@
                 var themes = {};
                 $.ajax({
                     method: 'GET',
-                    url: o.opt.optionSource,
+                    url: o.opt.optionSource.get,
                     success: function(theme){
                         theme.forEach(function (ele) {
                             themes[ele.id] = ele.name;
                         });
-                    },
-                    error: function (jqXHR, exception) {
-                      console.error(jqXHR.responseText);
                     },
                 });
 
@@ -461,14 +462,40 @@
                             },
                             items: {
                                 "favorite"  : {name: "加入最愛", icon: "fa-heart", disabled: (target.type == "folder")},
+                                "sep1"  : "---------",
                                 "layertheme"  : {
                                     name: "加入主題", 
                                     type: 'select',
                                     options: themes,
                                     disabled: (target.type == "folder")
                                 },
+                                "layerthemeadd": {
+                                    name: "加入", 
+                                    callback: function(key, options) {
+                                        $.ajax({
+                                            url: o.opt.optionSource.post,
+                                            type: 'POST',
+                                            data: {
+                                                mode: 'add',
+                                                layerid: target.id,
+                                                themeid: options.inputs[Object.keys(options.inputs)[0]].$input[0].value
+                                            },
+                                            dataType: 'JSON',
+                                            beforeSend: function(){
+                        
+                                            },
+                                            success: function(_result){
+
+                                            },
+                                            complete: function(){
+
+                                            }
+                                        });
+                                    },
+                                },
+                                "sep2"  : "---------",
                                 "flyto"  : {name: "定位圖層", icon: "fa-dot-circle-o", disabled: (target.type == "folder")},
-                                "sep1"  : "---------",
+                                "sep3"  : "---------",
                                 "quit"  : {name: "離開", icon: "fa-sign-out"}
                             }
                         };

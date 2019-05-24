@@ -471,27 +471,7 @@
                                 },
                                 "layerthemeadd": {
                                     name: "加入", 
-                                    callback: function(key, options) {
-                                        $.ajax({
-                                            url: o.opt.optionSource.post,
-                                            type: 'POST',
-                                            data: {
-                                                mode: 'add',
-                                                layerid: target.id,
-                                                themeid: options.inputs[Object.keys(options.inputs)[0]].$input[0].value
-                                            },
-                                            dataType: 'JSON',
-                                            beforeSend: function(){
-                        
-                                            },
-                                            success: function(_result){
-
-                                            },
-                                            complete: function(){
-
-                                            }
-                                        });
-                                    },
+                                    disabled: (target.type == "folder"),
                                 },
                                 "sep2"  : "---------",
                                 "flyto"  : {name: "定位圖層", icon: "fa-dot-circle-o", disabled: (target.type == "folder")},
@@ -544,7 +524,7 @@
                     case "favorite":
                         o.target.trigger('onAddFavorite',  _value);
                         break;
-                    case "layertheme":
+                    case "layerthemeadd":
                         o.target.trigger('onAddLayerTheme',  _value);
                         break;
                     case "flyto":

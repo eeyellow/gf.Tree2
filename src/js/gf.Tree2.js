@@ -467,6 +467,7 @@
                                     name: "加入主題", 
                                     type: 'select',
                                     options: themes,
+                                    selected: Object.keys(themes)[0],
                                     disabled: (target.type == "folder")
                                 },
                                 "layerthemeadd": {

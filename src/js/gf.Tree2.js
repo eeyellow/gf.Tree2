@@ -445,7 +445,10 @@
                     url: o.opt.optionSource.get,
                     success: function(theme){
                         theme.forEach(function (ele) {
-                            themes[ele.id] = ele.name;
+                            var id = JSON.stringify({
+                                id: ele.id
+                            });
+                            themes[id] = ele.name;
                         });
                     },
                 });

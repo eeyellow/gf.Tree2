@@ -57,6 +57,14 @@
                 this._event();
                 this._subscribeEvents();
 
+                //如果有設定預設開啟物件
+                var self = this;
+                if (this.opt.defaultActiveItem.length > 0) {
+                    this.opt.defaultActiveItem.forEach(function (ele) {
+                        self.target.find('.gfTreeItem[data-' + self.opt.layeridField + '="' + ele + '"]').trigger('click');
+                    });
+                }
+
                 this.target.trigger('onInitComplete');
             }
         };
@@ -65,7 +73,7 @@
         gfTree.defaults = {
             arrData: [], //原始資料
             activeItem: [], //開啟的物件
-
+            defaultActiveItem: [], //預設開啟的物件
             css: {
                 'width': '300px',
 
@@ -467,14 +475,14 @@
                                 "favorite"  : {name: "加入最愛", icon: "fa-heart", disabled: (target.type == "folder")},
                                 "sep1"  : "---------",
                                 "layertheme"  : {
-                                    name: "加入主題", 
+                                    name: "加入主題",
                                     type: 'select',
                                     options: themes,
                                     selected: Object.keys(themes)[0],
                                     disabled: (target.type == "folder")
                                 },
                                 "layerthemeadd": {
-                                    name: "加入", 
+                                    name: "加入",
                                     disabled: (target.type == "folder"),
                                 },
                                 "sep2"  : "---------",

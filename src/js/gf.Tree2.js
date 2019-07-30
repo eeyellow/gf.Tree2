@@ -74,10 +74,12 @@
             arrData: [], //原始資料
             activeItem: [], //開啟的物件
             defaultActiveItem: [], //預設開啟的物件
+            isFavorite: true,          //是否使用我的最愛?
+            isTheme: false,             //是否使用主題圖層?
+            isSetLocate: false,         //是否使用設定圖層定位功能?
             css: {
                 'width': '300px',
-
-                'background-color': '#e3f0db',
+                'background-color': '#364149',
                 'overflow-y': 'hidden',
                 'overflow-x': 'hidden'
             },
@@ -85,7 +87,6 @@
             identityField: 'id', //識別欄位
             nameField: 'name', //名稱欄位
             parentField: 'parent_id', //父層識別欄位
-            isparentField: 'isparent', //是否為父層欄位
             iconField: 'type', //圖示類型欄位
             sortField: 'seq', //排序欄位
             urlField: 'kmlurl',
@@ -102,23 +103,23 @@
 
             iconType: {
                 'folder': {
-                    'close': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzkvMTETEwwTAAAFKElEQVRYhe2XzY4kRxWFv3vjJ7O6zYwR8sCIhVcWrwE7e8HW3voFbL8KNi/ACmFWXmEvkXiB2SJ5wwYYzVhT3dNV+RMRN1hEZnS35B9sWcyGkFqdWRkVceLcc86tlForr3LoK939/wAA2S8++fTzXwN/AN78hrn/AN7/8L13/vp9Nvgujfk715/98vHjhw8e/AQAKwYiiDSMV9dXb/7r308/A17/PgC+a8gnn35eAV5/+IBHb7zBi5sZEUFVMTNqrdRa+dmDS54+e8bxePxBG33w7tvydZ97gF+99RbUynnNnbKcMwDOOQBO88ovHj3i8c8fsbNazRBVzArOOazc3sttdfn7l19+I7Begq9ennHO4ZzrIPZrMyOL8OJmQkTIOeO9p5TSmboLttaKiFBK4aevjd/KjAcQEZ4//ee3Tvyh49n2//d//uJr1XhXhLz/29/ANm0XX1exgMqta0WkPRMQ2mnhDgvbQvsz51yfo6rM68ofv/jbk3sArm4mrk4zh8MBEeF8PnM4HFjXlWEYWJall2Acxw4i50zOGRHp83PODMNwb/MQQgMpcLx+CXCl0MQE4LxnPBw4TxPzslCBaZ4JMbKsK+ocVivj4UAuhWJGBXIpVCDEyJoSPgTGw4E1JRBBnaMC52mCDXSxCnBUANFGbcqFNWUQpVhFnSfEgWVNVIRiFattXi4GopynGaswHi6Y5oVilVyMlAvOB9aUKVbxIRKHkWVNOKe8eHkD8KQB2BxTqR3tMI4gQi6FXAop535vtYIIKWeGcURUOU8Th4sL1Ll+6v07xYxlXdtGInjvu7bu9YLgIyA455mmmZwLqo5xPDAMI6UYIURElBAiKWUaFkXVcTqdm+xESSnjnMc5TylGzoVlWTGr1ArH68aAB7o6ixXWtGJmxBgxM0SFZV2otRJjvM2FNeODZ00r3ntyyhwuDtRamZcZVaVYuVW+0ybYklnTSmqfH+8x0KhVRB3FKvOy9ppWBKtgFdT5fp9yoVhF1DHNC1bp31/WBKI4H7BKXwvRprUdwO5dEcV5z5oSdXPFruRd6SnnezrYHbHXfp8fYkSdI5fCvCzkUkAE55vzr29OfPDu202EO01tceuIK4IPER9iP60630+zKzzEoTtA1FERbk5nEMWHyDAeurPa+rfx4/e06nYUw2olrStx8/We/bkU4hYqcQsZUeW0Bda0+TzG2J+nde3JOY4jWo3nL44AT7oL9tgEmsC2pFNVvPcMw4CIEELoqTfPM9C6Zq2VlBLOud6cVJWUEnuJY4zknHGuOQS46gzcDuE8zYQQKNYWNTPGcWReVlS1dzoQljXhvScOreNVawEErUv6EHHOsSytPGbG5RC3ORw7A7sIEcGH0AW1C2+PXOc9znvUuT5nD6RpnllTIsSIqFKs1XqaZ+IwdOF6J7w8T70E93KgUVpIKW+UtxO0xjIyTROqinOOlFYuLi46cy2cAtM097VOpzMxRuZ5QdX1Eu69pzMge5sVBZEew7t9Us49auuWF7v9dgvucVvMugVDjFitiGpvVCLK9el8nwGz2yT0IWC1dpr3Da1Wbk6n1lrNyHNLu6YXI25CTSlRzChm935T7iVFZRfhcQfw8bPnzz/aqXw4NiU3xTpqBb2Mt83jzrOcC861+xAiOSfC5SV7WdvPMkNVtuuAiLZWnvNV2xH4+E9/+Z2IfMT/cHz43ju+1lpks5UDIvAacLn9BX68N6cKZGACboBrYLkL4Efa579Ec+dtSV716/l/AEMVgc68DbpnAAAAAElFTkSuQmCC',
-                    'open': 'data:image/png;base64,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',
-                },
+                   	'close': ' fas fa-folder fa-fw fa-lg',
+                    'open': ' fas fa-folder-open fa-fw fa-lg'
+               },
                 '向量': {
-                    'close': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzkvMTETEwwTAAABpUlEQVRYhe2XTUsCQRjHf5Ob4Fshhl6jKLvUHjuV3Tx27OipxI8hfYgi6BB9g+6Bq178AIIvSZfEhAQNoYRyO7gry7Zi5rp68A8Pywyz8/z2+c8OM0JVVXQJIcgouTiQAk6ZXnfA1UnsqABgzDXMaexUsvmkJEnX0egOG6HQVJkr1RrrawFK5coQwgpAMrVTsryP3+ezpJ1UkUgYIFEqV8goOYCCecyKqS3blRwGJY9EwuxFdxNASsnmD8cBDF60IfR5+mMgzBbo6BN96Uhp8+gQaHZgsMKyArNQv98fQhj7LStgVwGeas9jx1hbwPQE21ubv/pcLheNRmM8gE0F+JNGLMJ5AzhIsLRgRAXmbIGTFXBsJxylpQUL+hsuLXAu/4xPRP8FcLICi7kROWnBihACPQCl3eng9XpsOZobw+v10O50ABQjgAQI7eluNl/vi0UpZsfVzKy3VotyuUqv17sRQghVu/0IwAW4gQAQSKcv4weyfBYMBo/tBOh2u4/1+stt8uL8AfhUVfXbDOAHfFqsYt8CVYEv4APoAu9AzwjgqMz3zh+JJ8M3gBMOmgAAAABJRU5ErkJggg==',
-                    'open': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzkvMTETEwwTAAAEE0lEQVRYhd2XX2xTVRzHP7f39ra9bQUCYYoGCGQUha0DE4UEGOoDRklAY5Ro4l6EZSYEHiQ++AIxPmg08cU/EI0hGjUmBkGNJgSzbiOTjAADJ+s2BuyvQ0YotL339t57rg/tmlK7P3UVE7/NeTgn93d+n35/55x7j+S6LhOSJInmWOsWoAnYxux1GPhoc/3GUwCFufI5CwdjLW2NiqJ8HIlUs2D+/Fll7um9xJx7wnTHe/IQpQCUon5TNFpDKBgsSVuuqqoWAjR0x3tojrUCnCp+xlPUj1YqOWQtr6payMrIigagKdbS9uh0ANnACrSJecQ0EMUlmEAv659Oqtw8ExDkykFBKUo68G9ICJGHKBwv6UClDOi7dHnaZ0qXgNkTLF+29G9jsiwzOjo6PUCFDJiRJlmE/zXAXST4f5Ug3tdP+5nzXBkaRZKyO9x1BUsfuI/1a2tZ/eCKmQG4/4DgyI/H6ezuQ5YVvD4/sicL4AjBwMg1Lg/+zJrefhbODd0RV/ogKvPcPfLDcc5d7EWWFVSfn4CmoYXCaKEwgUAAWVFwHEFHZxdnu3pmAFCG4n39nL3Yk0vuwxcI4PcHUH1+vKoPj0fGNA3StxOYhsHgtXFefvW1x6YEcMv4new4h8fjQVFVvKoPr9eLR1ZAkrBti+StBGGfl3f2v07tQ9Xcup1EUX17pnagDPsvDw5nF5xwyWQMLMtCODYZwyAxfh1VEuxpbCDg9/Pis9vwelW8qpr/2qrINnQcgWkkCGl+bqTShEJh9HQKLw57d+8kqGnohsmHX3yLLCs4jp2PnWQNzNwC13URjk3dqgj79+0msmQRA1f7sc00+wqSH/rqO8au38gWruBtN+tzQAiBR5Z5buuTADy//SkSiZvsangJTQsAcOxEGyN/3sCyLBzHRggxtQPl7MJlixeh6wbvHTyMrpsENY29Ta/kk3/9/XHO/NaNZRpkTAPbsrBM8+iUALjujNv6h+tIpVJcGRzi3YOfoetmfpovj/5Ex/nfMQ0dQ0+TMQ0c28bQ0+9XzIFI9XI2PLIG28pw5eoQb3/wCbpucPibo7SfPo+p6xjpNBnDwLYyVC+5HyuTaZ7INcnbsDzteGYrAC3tpxkYGmH3G28h5Y5iVwiEEAjH4YmN61h87wI6znTmYyv2Ubpj+9PUrVrJL62/ciHei4SUnQqXmkg1j29cx9roamItbXfESYWd5lhrczRaUz93zhxSab1siKkU1ALcTCTo7LwQq9+0YfPEuJKDUAB1bOyPz7u6lPpKXM2KdX18nHi8F9M0D0mSJLm5w0ACZEAFwkD4wIE3t9RGoy/MmzdvUyUBksnkieHhoU8bd+08Bhiu6zrFACEgmGteKndncAEb0IEkcAswCwHuqorvnX8BQwcw2KDp4OkAAAAASUVORK5CYII=',
-                },
+                    'close': ' fas fa fa-square-o fa-fw fa-lg',
+                    'open':' far fa fa-check-square-o fa-fw fa-lg'
+               },
                 'kmlurl': {
-                    'close': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzkvMTETEwwTAAABpUlEQVRYhe2XTUsCQRjHf5Ob4Fshhl6jKLvUHjuV3Tx27OipxI8hfYgi6BB9g+6Bq178AIIvSZfEhAQNoYRyO7gry7Zi5rp68A8Pywyz8/z2+c8OM0JVVXQJIcgouTiQAk6ZXnfA1UnsqABgzDXMaexUsvmkJEnX0egOG6HQVJkr1RrrawFK5coQwgpAMrVTsryP3+ezpJ1UkUgYIFEqV8goOYCCecyKqS3blRwGJY9EwuxFdxNASsnmD8cBDF60IfR5+mMgzBbo6BN96Uhp8+gQaHZgsMKyArNQv98fQhj7LStgVwGeas9jx1hbwPQE21ubv/pcLheNRmM8gE0F+JNGLMJ5AzhIsLRgRAXmbIGTFXBsJxylpQUL+hsuLXAu/4xPRP8FcLICi7kROWnBihACPQCl3eng9XpsOZobw+v10O50ABQjgAQI7eluNl/vi0UpZsfVzKy3VotyuUqv17sRQghVu/0IwAW4gQAQSKcv4weyfBYMBo/tBOh2u4/1+stt8uL8AfhUVfXbDOAHfFqsYt8CVYEv4APoAu9AzwjgqMz3zh+JJ8M3gBMOmgAAAABJRU5ErkJggg==',
-                    'open': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzkvMTETEwwTAAAEE0lEQVRYhd2XX2xTVRzHP7f39ra9bQUCYYoGCGQUha0DE4UEGOoDRklAY5Ro4l6EZSYEHiQ++AIxPmg08cU/EI0hGjUmBkGNJgSzbiOTjAADJ+s2BuyvQ0YotL339t57rg/tmlK7P3UVE7/NeTgn93d+n35/55x7j+S6LhOSJInmWOsWoAnYxux1GPhoc/3GUwCFufI5CwdjLW2NiqJ8HIlUs2D+/Fll7um9xJx7wnTHe/IQpQCUon5TNFpDKBgsSVuuqqoWAjR0x3tojrUCnCp+xlPUj1YqOWQtr6payMrIigagKdbS9uh0ANnACrSJecQ0EMUlmEAv659Oqtw8ExDkykFBKUo68G9ICJGHKBwv6UClDOi7dHnaZ0qXgNkTLF+29G9jsiwzOjo6PUCFDJiRJlmE/zXAXST4f5Ug3tdP+5nzXBkaRZKyO9x1BUsfuI/1a2tZ/eCKmQG4/4DgyI/H6ezuQ5YVvD4/sicL4AjBwMg1Lg/+zJrefhbODd0RV/ogKvPcPfLDcc5d7EWWFVSfn4CmoYXCaKEwgUAAWVFwHEFHZxdnu3pmAFCG4n39nL3Yk0vuwxcI4PcHUH1+vKoPj0fGNA3StxOYhsHgtXFefvW1x6YEcMv4new4h8fjQVFVvKoPr9eLR1ZAkrBti+StBGGfl3f2v07tQ9Xcup1EUX17pnagDPsvDw5nF5xwyWQMLMtCODYZwyAxfh1VEuxpbCDg9/Pis9vwelW8qpr/2qrINnQcgWkkCGl+bqTShEJh9HQKLw57d+8kqGnohsmHX3yLLCs4jp2PnWQNzNwC13URjk3dqgj79+0msmQRA1f7sc00+wqSH/rqO8au38gWruBtN+tzQAiBR5Z5buuTADy//SkSiZvsangJTQsAcOxEGyN/3sCyLBzHRggxtQPl7MJlixeh6wbvHTyMrpsENY29Ta/kk3/9/XHO/NaNZRpkTAPbsrBM8+iUALjujNv6h+tIpVJcGRzi3YOfoetmfpovj/5Ex/nfMQ0dQ0+TMQ0c28bQ0+9XzIFI9XI2PLIG28pw5eoQb3/wCbpucPibo7SfPo+p6xjpNBnDwLYyVC+5HyuTaZ7INcnbsDzteGYrAC3tpxkYGmH3G28h5Y5iVwiEEAjH4YmN61h87wI6znTmYyv2Ubpj+9PUrVrJL62/ciHei4SUnQqXmkg1j29cx9roamItbXfESYWd5lhrczRaUz93zhxSab1siKkU1ALcTCTo7LwQq9+0YfPEuJKDUAB1bOyPz7u6lPpKXM2KdX18nHi8F9M0D0mSJLm5w0ACZEAFwkD4wIE3t9RGoy/MmzdvUyUBksnkieHhoU8bd+08Bhiu6zrFACEgmGteKndncAEb0IEkcAswCwHuqorvnX8BQwcw2KDp4OkAAAAASUVORK5CYII=',
+                    'close': ' fas fa fa-square-o fa-fw fa-lg',
+                    'open':' far fa fa-check-square-o fa-fw fa-lg'
                 },
                 'wms': {
-                    'close': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzkvMTETEwwTAAABpUlEQVRYhe2XTUsCQRjHf5Ob4Fshhl6jKLvUHjuV3Tx27OipxI8hfYgi6BB9g+6Bq178AIIvSZfEhAQNoYRyO7gry7Zi5rp68A8Pywyz8/z2+c8OM0JVVXQJIcgouTiQAk6ZXnfA1UnsqABgzDXMaexUsvmkJEnX0egOG6HQVJkr1RrrawFK5coQwgpAMrVTsryP3+ezpJ1UkUgYIFEqV8goOYCCecyKqS3blRwGJY9EwuxFdxNASsnmD8cBDF60IfR5+mMgzBbo6BN96Uhp8+gQaHZgsMKyArNQv98fQhj7LStgVwGeas9jx1hbwPQE21ubv/pcLheNRmM8gE0F+JNGLMJ5AzhIsLRgRAXmbIGTFXBsJxylpQUL+hsuLXAu/4xPRP8FcLICi7kROWnBihACPQCl3eng9XpsOZobw+v10O50ABQjgAQI7eluNl/vi0UpZsfVzKy3VotyuUqv17sRQghVu/0IwAW4gQAQSKcv4weyfBYMBo/tBOh2u4/1+stt8uL8AfhUVfXbDOAHfFqsYt8CVYEv4APoAu9AzwjgqMz3zh+JJ8M3gBMOmgAAAABJRU5ErkJggg==',
-                    'open': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABR0RVh0Q3JlYXRpb24gVGltZQA2LzkvMTETEwwTAAAEE0lEQVRYhd2XX2xTVRzHP7f39ra9bQUCYYoGCGQUha0DE4UEGOoDRklAY5Ro4l6EZSYEHiQ++AIxPmg08cU/EI0hGjUmBkGNJgSzbiOTjAADJ+s2BuyvQ0YotL339t57rg/tmlK7P3UVE7/NeTgn93d+n35/55x7j+S6LhOSJInmWOsWoAnYxux1GPhoc/3GUwCFufI5CwdjLW2NiqJ8HIlUs2D+/Fll7um9xJx7wnTHe/IQpQCUon5TNFpDKBgsSVuuqqoWAjR0x3tojrUCnCp+xlPUj1YqOWQtr6payMrIigagKdbS9uh0ANnACrSJecQ0EMUlmEAv659Oqtw8ExDkykFBKUo68G9ICJGHKBwv6UClDOi7dHnaZ0qXgNkTLF+29G9jsiwzOjo6PUCFDJiRJlmE/zXAXST4f5Ug3tdP+5nzXBkaRZKyO9x1BUsfuI/1a2tZ/eCKmQG4/4DgyI/H6ezuQ5YVvD4/sicL4AjBwMg1Lg/+zJrefhbODd0RV/ogKvPcPfLDcc5d7EWWFVSfn4CmoYXCaKEwgUAAWVFwHEFHZxdnu3pmAFCG4n39nL3Yk0vuwxcI4PcHUH1+vKoPj0fGNA3StxOYhsHgtXFefvW1x6YEcMv4new4h8fjQVFVvKoPr9eLR1ZAkrBti+StBGGfl3f2v07tQ9Xcup1EUX17pnagDPsvDw5nF5xwyWQMLMtCODYZwyAxfh1VEuxpbCDg9/Pis9vwelW8qpr/2qrINnQcgWkkCGl+bqTShEJh9HQKLw57d+8kqGnohsmHX3yLLCs4jp2PnWQNzNwC13URjk3dqgj79+0msmQRA1f7sc00+wqSH/rqO8au38gWruBtN+tzQAiBR5Z5buuTADy//SkSiZvsangJTQsAcOxEGyN/3sCyLBzHRggxtQPl7MJlixeh6wbvHTyMrpsENY29Ta/kk3/9/XHO/NaNZRpkTAPbsrBM8+iUALjujNv6h+tIpVJcGRzi3YOfoetmfpovj/5Ex/nfMQ0dQ0+TMQ0c28bQ0+9XzIFI9XI2PLIG28pw5eoQb3/wCbpucPibo7SfPo+p6xjpNBnDwLYyVC+5HyuTaZ7INcnbsDzteGYrAC3tpxkYGmH3G28h5Y5iVwiEEAjH4YmN61h87wI6znTmYyv2Ubpj+9PUrVrJL62/ciHei4SUnQqXmkg1j29cx9roamItbXfESYWd5lhrczRaUz93zhxSab1siKkU1ALcTCTo7LwQq9+0YfPEuJKDUAB1bOyPz7u6lPpKXM2KdX18nHi8F9M0D0mSJLm5w0ACZEAFwkD4wIE3t9RGoy/MmzdvUyUBksnkieHhoU8bd+08Bhiu6zrFACEgmGteKndncAEb0IEkcAswCwHuqorvnX8BQwcw2KDp4OkAAAAASUVORK5CYII=',
+                    'close': ' fas fa fa-square-o fa-fw fa-lg',
+                    'open':' far fa fa-check-square-o fa-fw fa-lg'
                 }
             },
-            scrollColor: '#527100',
+            scrollColor: '#ffffff',
             /*
             switch: {
                 on: 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4Ij4KPHBhdGggc3R5bGU9ImZpbGw6I0E0RTI3NjsiIGQ9Ik0zNzIuMzY0LDM0OS4wOTFjLTUxLjMzLDAtOTMuMDkxLTQxLjc2MS05My4wOTEtOTMuMDkxczQxLjc2MS05My4wOTEsOTMuMDkxLTkzLjA5MSAgYzEyLjg1MywwLDIzLjI3My0xMC40MiwyMy4yNzMtMjMuMjczYzAtMTIuODUzLTEwLjQyLTIzLjI3My0yMy4yNzMtMjMuMjczSDEzOS42MzZDNjIuNjQxLDExNi4zNjQsMCwxNzkuMDA1LDAsMjU2ICBzNjIuNjQxLDEzOS42MzYsMTM5LjYzNiwxMzkuNjM2aDIzMi43MjdjMTIuODUzLDAsMjMuMjczLTEwLjQyLDIzLjI3My0yMy4yNzNTMzg1LjIxNiwzNDkuMDkxLDM3Mi4zNjQsMzQ5LjA5MXoiLz4KPGNpcmNsZSBzdHlsZT0iZmlsbDojRkZGRkZGOyIgY3g9IjM3Mi4zNjQiIGN5PSIyNTYiIHI9IjExNi4zNjQiLz4KPHBhdGggc3R5bGU9ImZpbGw6I0E5QThBRTsiIGQ9Ik0zNzIuMzY0LDM5NS42MzZjLTc2Ljk5NSwwLTEzOS42MzYtNjIuNjQxLTEzOS42MzYtMTM5LjYzNnM2Mi42NDEtMTM5LjYzNiwxMzkuNjM2LTEzOS42MzYgIFM1MTIsMTc5LjAwNSw1MTIsMjU2UzQ0OS4zNTksMzk1LjYzNiwzNzIuMzY0LDM5NS42MzZ6IE0zNzIuMzY0LDE2Mi45MDljLTUxLjMzLDAtOTMuMDkxLDQxLjc2MS05My4wOTEsOTMuMDkxICBzNDEuNzYxLDkzLjA5MSw5My4wOTEsOTMuMDkxUzQ2NS40NTUsMzA3LjMzLDQ2NS40NTUsMjU2UzQyMy42OTQsMTYyLjkwOSwzNzIuMzY0LDE2Mi45MDl6Ii8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=',
@@ -127,15 +128,18 @@
             */
             toolIcon: {
                 list: {
-                    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAs0lEQVQ4T83TMWoCURQF0DOWCgquwSauQEHrZBvBLkWyFbFSwT0IFgp2CRgtzQZC+hRZQhgQ+ajNMG/AX79/uI/LywS/LNhTKdjEAw5lUqcJd+jjFRusCsBjTPP5FHzHEC/YYlkAnGB+CdbRwVcB6Gq08lK62Ecl/EQPb1hHlPKBQWQpjVMpx6iVyzjnv2nLNbTxW0ZOwQWe8YTviFJmGOERPxGXkqdt4S9q5TLOzVLuE/wHIYoeFULOg3MAAAAASUVORK5CYII=',
+                    class: ' fas fa-list-ul fa',
+                    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfjBgQODRGJptLOAAABOElEQVQ4y7WTvUtCYRjFf69eI7pZ4hAWSIY0Gf4N0VRb0WQ0NEhTsy39CVFLSxBB0Fq2F625BNIH9LEoaFC4WPc2mN7T4tLydhfP/BzO7znv+8CgZUALzPHIjfkOZdAWJVw67HLCBAUylmnhGT0xSwSoss4MO+SsAYFDHAOAS5QYLqN2JIcjSgzTpcwHUa6pW5F8ozSLZKlzRY0hphixGroGFCdBG88E4VpKssY0Dco0gTgxe4LDJkVStBjnkBSrpK0BHfSsniSpqpyWdSe7epEw3H9rPe4jndHC4YJbO5JRkgIZGpzzFmZpAxojQZuvsLWmWSJLLezDORT7X2OPfSbZIGs1+KipQJL0orxWdP9PrXL4JIUBfHr84ONZVwgcDtjGpcMp74hLXq1IngHNk+eBSrgTHbx+Abo+tejhuQ7tAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA2LTA0VDEyOjEzOjE3KzAyOjAw6RGc/gAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNi0wNFQxMjoxMzoxNyswMjowMJhMJEIAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC',
                     desc: '圖層清單'
                 },
                 search: {
-                    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABL0lEQVQ4T63UzyuEQRgA4GfxV8iFAyIXxVkOUqI4OChELm6khAil3OVK4U/gKEeKk/IjcRflxFmamq3d7fv227U715l55n3feWdy6jxyKV4LxtCFRvzgASdZ5yeBMxjCJZ7whh60YRFLuE6DS8FJdGO7TCRHOMB90ppCcBDDWM1KC+dYwEfp2kLwFCHdSkY75rGWBnZiowowOHfoSwPHEdD9SsKLa86wh5fCPfmU6w52YBPTVUR4i/5ylxKadrZCMFzKHNbLgQMYxUoF6EW85c9yYJibQG9MP8kNz/AY77ErfrPAMD+FEVzhGa/x6bXGZr7BcnzXoReL0LTPoTmmHz6HJnzjEaFVGmKUod6h7kVoGphVxlT0v2A4MBGtBSxFd7BbK5hHt3CIr3qARfX+A6FHOhXx8HvKAAAAAElFTkSuQmCC',
+                    class: ' fas fa-search fa',
+                    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfjBgQOFDBez2uIAAACHElEQVQ4y42SzUvUURSGnztZ5kdBiVjhFCEK1aqgREtXA31I5CLIXRQuWvRftBDaBGGgIBUFLip3VvbBUAlBBCZk0Ac1gVQLNRqtfo0287RQdBwNfXf3nPO85557T2BOFnOUExwgTpYvvKCPwTDF/2SzSdPOmDVnzqwzTtpvwlBYGQBs4wI7iHhEkhRQQ4KDbOQNnVwLLnX/4F8HbbHa/TZZbblbPGnSjM9tLSwvNum0gzbaaI8j3rIexDKPeN/I225bDLSaNm2Ljd512Ism3DyXKfO0n3xv+2LgujPesdoehz1j3BJj87ldXvWnNxYiEGM/MZJspZ6HPGY0RCE3nx1liBLibMoHqgmkWMdrHjBe8Iq/GGOaUioWQkXM+n3mEh/JLPNFMcD84xekhnR4Gb7nXWZW5VRRRMREPvCCHAnKXcac7ezjNykm84E+Ig5yiLIl67KRepr4ytPwNz+8wX4zJj1s6eJyjzvgpL1uL3RKOGTGe552l+UGgxvc41kHTPvMNmvcvWj5DJyhnb184wlDjAFV7KOJSoa5yQinWMfl8Da/R7DV2773p1n/mDHrlO/stc0GLxs5YZd1eesN4DaO0UycUiAixVOSrOU851gPpLlFR0gVThOzwjpr3ewaAHd7xQlnNWX3kvGXyjo7/TGHRPZYuTJSa5dTc8i0HSsC4E67jVTNObYKAIzb7bQ5Z3y1KgCstMNxX9nwDzTMWXvXBM3tAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA2LTA0VDEyOjIwOjQ4KzAyOjAwJWw/cQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNi0wNFQxMjoyMDo0OCswMjowMFQxh80AAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC',
                     desc: '圖層搜尋'
                 },
                 clear: {
-                    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABqUlEQVQ4T53Uu+vPURzH8cfPfRMpE2WwMEgui5ESYmFxmaRcMlhsklgsNnL5ZXHJwsyAMsklyh+AkoWiTOTaS+fw+R2f7yWnPvX5nM95P9/v83pfJvxds/Gl8/1frxPFaiEe4Awme0gL8AMfRnmpwER3C5uxv4GuxU18x3Y8GwatwJzpgy4vgFkF8hmHcXkQtAtsoQdwCcdwqgEEGHAcTFktMD+X4TlmYhg0V48Er7vEFrgNVzC3HPo5Apok7cHtCu0C1+Ahpje3GAX9itV4Ebs2wk24jnk90IO42Gj6Hjtxry/CureklNDKEdCt2IE3wzRcjHflwDnsHQKNNEncCjzqi3AV7uJlJ3v7cLbUaLWJpvX6cXge6/C01XAaThSNPmI37iCO0kXfsAvHS0cdwgWsx33E0T9JyV7a71opnZPIM7+03iecxtECqNA/yvQVdn52E5MaS7TR7AY24HEZFBsxBToIGOgc1MS8wgwsKpodKSFFii1d6DBgvUZNTMZXJtHVTuYzNDKJEvVSvB0HGPskJh3xuxuaFWhK58mgpPTYjL81boRjE38B5LBgFUVPPZYAAAAASUVORK5CYII=',
+                    class: ' fas fa-eye-slash fa',
+                    src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfjBgQODyzj+PxdAAABlUlEQVQ4y5WTvW4TQRRGT9AWcQGslMJGdEiRtqZCEFIiQYlAdDSR3PMGVImTwhGRTZQCWQaUH9GFh6DbF0BKk82uLVCClcoUPhReG9h4IfmquXe+M3Nn5g6GfnTgLA38YEhBAS2e8Y5zLuo6K8jLQtaBW5TILX8Uc9e4wWkZwCk3LwJXVA74xGOPfXxpgB3OOGPn8sBVS6JOSEg9L3DRzx66OPvq9HUhE5nas+dXXxj/FzAyNTXyjs9LdzD00bgJJvZ8btkDT/zpifs+/A20TNTEyMhsYjdwW83s2LBjT20bjIFzU5+ampmZTVffduSa83lUseHI9gSIwOgv+7K6BtbyuAauq0uob/LkggvTkx2YOW9N3QQ31aoV++7NuFYAUzuQW+MxBnZNStrboav56IsaOwfgqsOAQ+pK+of7aO4T37kFYJN7xNylySvgNt8w9H3hi8bgvj0rVtUm2FRrVuy7W9JiLqkNsJrHVXBDvV/alb515LqV6TtsOLJFuQxsq327NuzaV1sG/Fs+cM/EoYm7k2J+ATzDZahua4cKAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA2LTA0VDEyOjE1OjQ0KzAyOjAwnQf4QAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNi0wNFQxMjoxNTo0NCswMjowMOxaQPwAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC',
                     desc: '清除圖層'
                 },
                 // history: {
@@ -172,9 +176,8 @@
                     'class': 'gfTreeToolbar'
                 });
                 Object.keys(o.opt.toolIcon).forEach(function (icontype) {
-                    var iconimg = $('<img/>', {
-                        'class': 'gfTreeToolbar-Icon',
-                        'src': o.opt.toolIcon[icontype].src,
+                    var iconimg = $('<i/>', {
+                        'class': 'gfTreeToolbar-Icon'+ o.opt.toolIcon[icontype].class,
                         'title': o.opt.toolIcon[icontype].desc,
                         'data-type': icontype
                     });
@@ -210,7 +213,7 @@
                 searchResultList.height(o.target.height() - toolbar.outerHeight() - searchInput.outerHeight());
 
                 //圖層清單容器
-                var itemlist = $('<div/>', {
+               	var itemlist = $('<div/>', {
                     'class': 'gfTreeItemList'
                 }).appendTo(subContainer);
                 itemlist.height(o.target.height() - toolbar.outerHeight());
@@ -224,8 +227,8 @@
                     //.sort(function (a, b) {
                     //    return a[o.opt.sortField] * 1 > b[o.opt.sortField] * 1;
                     //})
-                    .forEach(function (ele) {
-                        var div = $('<div/>', {
+                  .forEach(function (ele) {
+                     var div = $('<div/>', {
                             "class": "gfTreeItem",
                             "data-id": ele[o.opt.identityField],
                             "data-type": ele[o.opt.iconField],
@@ -240,11 +243,16 @@
                             "data-y": ele[o.opt.flytoYField],
                             "data-z": ele[o.opt.flytoZField]
                         });
+                        if([ele[o.opt.iconField]]=="folder"){
+                            var icon = $('<i/>', {
+                                "class": "gfTreeContent-Icon fas fa-folder fa-fw fa-lg"
+                            });
+                        }else{
+                            var icon = $('<i/>', {
+                                "class": "gfTreeContent-Icon fas fa fa-square-o fa-fw fa-lg"
+                            });
+                         }
 
-                        var icon = $('<img/>', {
-                            "class": "gfTreeContent-Icon",
-                            "src": o.opt.iconType[ele[o.opt.iconField]]["close"]
-                        });
                         div.append(icon);
                         var span = $('<span/>', {
                             "class": "gfTreeContent-Text",
@@ -277,11 +285,10 @@
                         var tp = et.data().type;
                         var pattern = new RegExp('^' + path + "_");
 
-
                         if (st == "close") {
                             $(this).data("st", "open");
                             $(this).attr("data-st", "open");
-                            $(this).children('.gfTreeContent-Icon').attr('src', o.opt.iconType[tp]["open"])
+                            $(this).children('.gfTreeContent-Icon').attr('class', 'gfTreeContent-Icon' + o.opt.iconType[tp]["open"])//原本是img改成font
 
                             if (tp == "folder") {
                                 o.opt.arrData
@@ -315,9 +322,9 @@
                                             div.data("st", st);
                                             div.attr("data-st", st);
                                         }
-                                        var icon = $('<img/>', {
-                                            "class": "gfTreeContent-Icon",
-                                            "src": o.opt.iconType[ele[o.opt.iconField]][st]
+                                        var icon = $('<i/>', {
+                                            "class": "gfTreeContent-Icon"+ o.opt.iconType[ele[o.opt.iconField]][st]
+                                            //"src": o.opt.iconType[ele[o.opt.iconField]][st]
                                         });
                                         div.append(icon);
                                         var span = $('<span/>', {
@@ -337,7 +344,8 @@
                         } else {
                             $(this).data("st", "close");
                             $(this).attr("data-st", "close");
-                            $(this).children('.gfTreeContent-Icon').attr('src', o.opt.iconType[tp]["close"])
+                            $(this).children('.gfTreeContent-Icon').attr('class', 'gfTreeContent-Icon'+o.opt.iconType[tp]["close"])//原本是img改成font
+
 
                             if (tp == "folder") {
                                 et.nextAll(".gfTreeItem").each(function () {
@@ -400,9 +408,9 @@
                                         "data-z": ele[o.opt.flytoZField]
                                     });
 
-                                    var icon = $('<img/>', {
-                                        "class": "gfTreeContent-Icon",
-                                        "src": o.opt.iconType[ele[o.opt.iconField]][st]
+                                    var icon = $('<i/>', {
+                                        "class": "gfTreeContent-Icon"+ o.opt.iconType[ele[o.opt.iconField]][st]
+                                        //"src": o.opt.iconType[ele[o.opt.iconField]][st]
                                     });
                                     div.append(icon);
                                     var span = $('<span/>', {
@@ -447,49 +455,62 @@
                 });
 
                 //右鍵選單
-                var themes = {};
-                $.ajax({
-                    method: 'GET',
-                    url: o.opt.optionSource.get,
-                    success: function(theme){
-                        theme.forEach(function (ele) {
-                            var id = JSON.stringify({
-                                id: ele.id
+                if (o.opt.isTheme) {
+                    var themes = {};
+                    $.ajax({
+                        method: 'GET',
+                        url: o.opt.optionSource.get,
+                        success: function (theme) {
+                            theme.forEach(function (ele) {
+                                themes[ele.id] = ele.name;
                             });
-                            themes[id] = ele.name;
-                        });
-                    },
-                });
+                        },
+                    });
+                }
 
                 $.contextMenu({
                     selector: o._getSelector(o.target) + " .gfTreeItemList .gfTreeItem",
                     build: function($trigger, e) {
                         var target = $trigger.data();
+                        var items = {};
+                        if (o.opt.isFavorite) {
+                            items["favorite"] = {
+                                name: "加入最愛",
+                                icon: "fa-heart",
+                                disabled: (target.type == "folder")
+                            };
+                        }
+                        if (o.opt.isTheme) {
+                            items["layertheme"] = {
+                                name: "加入主題",
+                                type: 'select',
+                                options: themes,
+                                selected: Object.keys(themes)[0],
+                                disabled: (target.type == "folder")
+                            };
+                            items["layerthemeadd"] = {
+                                name: "加入",
+                                disabled: (target.type == "folder"),
+                            };
+                        }
+                        if (o.opt.isSetLocate) {
+                            items["flyto"] = {
+                                name: "定位圖層",
+                                icon: "fa-dot-circle-o",
+                                disabled: (target.type == "folder")
+                            }
+                        }
+                        items["quit"] = {
+                            name: "離開",
+                            icon: "fa-sign-out"
+                        }
                         return {
                             callback: function(key, options) {
                                 //console.log(key);
                                 //console.log(target);
                                 o._contextMenuAction(key, target);
                             },
-                            items: {
-                                "favorite"  : {name: "加入最愛", icon: "fa-heart", disabled: (target.type == "folder")},
-                                "sep1"  : "---------",
-                                "layertheme"  : {
-                                    name: "加入主題",
-                                    type: 'select',
-                                    options: themes,
-                                    selected: Object.keys(themes)[0],
-                                    disabled: (target.type == "folder")
-                                },
-                                "layerthemeadd": {
-                                    name: "加入",
-                                    disabled: (target.type == "folder"),
-                                },
-                                "sep2"  : "---------",
-                                "flyto"  : {name: "定位圖層", icon: "fa-dot-circle-o", disabled: (target.type == "folder")},
-                                "sep3"  : "---------",
-                                "quit"  : {name: "離開", icon: "fa-sign-out"}
-                            }
+                            items: items
                         };
                     }
                 });

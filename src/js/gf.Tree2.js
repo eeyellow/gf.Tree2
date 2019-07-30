@@ -5,17 +5,6 @@
     var gfTree;
 
     $.ajax({
-        url: 'node_modules/gf.tree2/src/css/gf.Tree2.css',
-        dataType: 'text',
-        cache: true
-    }).then(function (data) {
-        var style = $('<style/>', {
-            'text': data
-        });
-        $('head').append(style);
-    });
-
-    $.ajax({
         url: 'node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.css',
         dataType: 'text',
         cache: true
@@ -53,6 +42,7 @@
             var initResult = this._init(options); //初始化
             if (initResult) {
                 //初始化成功之後的動作
+                this._css(this.opt.cssTheme);
                 this._style();
                 this._event();
                 this._subscribeEvents();
@@ -77,6 +67,7 @@
             isFavorite: true,          //是否使用我的最愛?
             isTheme: false,             //是否使用主題圖層?
             isSetLocate: false,         //是否使用設定圖層定位功能?
+            cssTheme: "default",
             css: {
                 'width': '300px',
                 'background-color': '#364149',
@@ -167,6 +158,13 @@
                     return false;
                 }
             },
+            /**
+             * @func _style
+             * @desc 設定DOM樣式
+             * @memberOf GEEMap
+             * @param {string} id  圖層ID
+             * @param {string} kmlurl KML網址
+             */
             _style: function () {
                 var o = this;
                 o.target.css(o.opt.css);
@@ -515,7 +513,152 @@
                     }
                 });
             },
+            _css: function (themeName) {
+                var style = document.querySelector("#style_" + pluginName);
+                if (style) {
 
+                }
+                else {
+                    style = document.createElement('style');
+                    style.id = "style_" + pluginName;
+                    style.type = 'text/css';
+                    var head = document.head || document.getElementsByTagName('head')[0];
+                    head.appendChild(style);
+                }
+
+                var css = this._cssTheme(themeName);
+
+
+                if (style.styleSheet){
+                    // This is required for IE8 and below.
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+            },
+            _cssTheme: function (theme) {
+                var themeMap = new Map();
+                themeMap.set("default", `
+                    .gfTreeItem {
+                        width: auto;
+                        padding: 0.6em;
+                        background: #EBEFE7;
+                        border-width: 0 1px 1px 1px;
+                        border-style: solid;
+                        border-color: #CCC;
+                        display: flex;
+                        flex-direction: row;
+                    }
+
+                    .gfTreeItem:hover {
+                        background: #89bd00;
+                        color: #FFF;
+                        cursor: pointer;
+                    }
+
+                    .gfTreeContent-Icon {
+                        width: 1em;
+                        height: 1em;
+                        padding-right: 5px;
+                        /*flex: 1;*/
+                    }
+                    .gfTreeContent-Text{
+                        flex: 9;
+                    }
+
+                    .gfTreeToolbar{
+                        width: auto;
+                        height: 36px;
+                        background: #EBEFE7;
+                        border-width: 1px 1px 3px 1px;
+                        border-style: solid;
+                        border-color: #CCC;
+                        display: flex;
+                        flex-direction: row;
+                    }
+                    .gfTreeToolbar-Icon{
+                        width: 20px;
+                        height: 20px;
+                        padding: 0.4em 0.6em;
+                    }
+
+                    .gfTreeSearchContainer{
+                        display: none;
+                    }
+                    .gfTreeSearchInput{
+                        padding: 0;
+                        margin: 0;
+                        height: 35px;
+                        text-align: center;
+                        width: 98.5%;
+                    }
+                `);
+                themeMap.set('dark', `
+                    .gfTreeItem {
+                        width: auto;
+                        padding: 0.6em;
+                        background: #364149;
+                        border-width: 0 1px 1px 1px;
+                        border-style: none;
+                        border-color: #364149;
+
+                        flex-direction: row;
+                    }
+
+                    .gfTreeItem:hover {
+                        background: #0099ff;
+                        color: #FFF;
+                        cursor: pointer;
+                    }
+
+                    .gfTreeContent-Icon {
+                        width: 1em;
+                        height: 1em;
+                        padding-right: 5px;
+                    }
+                    .gfTreeContent-Text{
+                        flex: 9;
+                        color: #d3fcff;
+                    }
+
+                    .gfTreeToolbar{
+                        width: auto;
+                        height: 36px;
+                        background: #364149;
+                        border-width: 1px 1px 3px 1px;
+                        border-style: none;
+                        border-color: #CCC;
+                        display: flex;
+                        flex-direction: row;
+                        /*justify-content: center ;*/
+                    }
+                    .gfTreeToolbar-Icon{
+                        width: 20px;
+                        height: 20px;
+                    }
+
+                    .gfTreeSearchContainer{
+                        display: none;
+                        background: #364149;
+                    }
+                    .gfTreeSearchInput{
+                        padding: 0;
+                        margin: 0;
+                        height: 35px;
+                        text-align: center;
+                        width: 98.5%;
+                    }
+                    .gfTreeSearchResultList{
+                        background: #364149;
+                    }
+                `);
+                if (themeMap.has(theme)) {
+                    return themeMap.get(theme);
+                }
+                else {
+                    return themeMap.get('default');
+                }
+            },
             _getAllData: function () {
                 var o = this;
                 return o.opt.arrData;
@@ -619,6 +762,17 @@
     });
 
     //實例化，揭露方法，回傳
+
+    /**
+     * The jQuery plugin namespace.
+     * @external "jQuery.fn"
+     */
+
+    /**
+     * 建構式
+     * @function external:"jQuery.fn".gfTree2
+     * @param {object} options 建構參數
+     */
     $.fn[pluginName] = function (options, args) {
         var gftree;
         this.each(function () {

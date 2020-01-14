@@ -311,15 +311,18 @@
                   "data-z": ele[o.opt.flytoZField]
                 });
                 div.css('padding-left', (lvl + 1) * 15 + 10 + "px");
+                var eleStatus;
 
                 if (o.opt.activeItem.indexOf(ele[o.opt.identityField] * 1) >= 0) {
-                  st = "open";
-                  div.data("st", st);
-                  div.attr("data-st", st);
+                  eleStatus = "open";
+                } else {
+                  eleStatus = "close";
                 }
 
+                div.data("st", eleStatus);
+                div.attr("data-st", eleStatus);
                 var icon = $('<i/>', {
-                  "class": "gfTreeContent-Icon" + o.opt.iconType[ele[o.opt.iconField]][st] //"src": o.opt.iconType[ele[o.opt.iconField]][st]
+                  "class": "gfTreeContent-Icon" + o.opt.iconType[ele[o.opt.iconField]][eleStatus] //"src": o.opt.iconType[ele[o.opt.iconField]][st]
 
                 });
                 div.append(icon);
@@ -620,9 +623,14 @@
   }); //實例化，揭露方法，回傳
 
   /**
-   * @class
-   * @classdesc
-   * @param option {Object} 建構參數
+   * The jQuery plugin namespace.
+   * @external "jQuery.fn"
+   */
+
+  /**
+   * 建構式
+   * @function external:"jQuery.fn".gfTree2
+   * @param {object} options 建構參數
    */
 
   $.fn[pluginName] = function (options, args) {
